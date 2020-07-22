@@ -3,6 +3,3 @@ numpy
 scikit-learn
 Flask==1.1.1
 flask_cors
-pickle
-sklearn
-pandas
