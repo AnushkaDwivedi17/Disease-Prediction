@@ -8,6 +8,7 @@ import numpy as np
 from flask import Flask, request, make_response
 import json
 import pickle
+import NaiveBayes
 from flask_cors import cross_origin
 
 app = Flask(__name__)
