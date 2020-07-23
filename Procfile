@@ -1,1 +1,1 @@
-web: python Codeofmagic.py
+web: gunicorn Codeofmagic:app
