@@ -45,8 +45,9 @@ def processRequest(req):
     elif req.get("queryResult").get("action") == "add_symptom.no":
         user_symptoms = User_Symptoms
         
-        symptom=np.zeros([526],dtype=float)
-        finaldataset=pd.read_csv('finaldataset.csv')
+        symptom=np.zeros([132],dtype=float)
+        finaldataset=pd.read_csv('Training.csv')
+        finaldataset.columns=finaldataset.columns.str.replace('_',' ')
         labels=finaldataset['prognosis']
         fdc=finaldataset
         fdc.drop('prognosis',axis=1,inplace=True)
