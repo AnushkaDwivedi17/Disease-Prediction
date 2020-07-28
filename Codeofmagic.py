@@ -7,7 +7,8 @@ Created on Thu Jul 23 14:59:36 2020
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from sklearn.naive_bayes import MultinomialNB
+#from sklearn.naive_bayes import MultinomialNB
+from sklearn.ensemble import RandomForestClassifier
 from flask import Flask, request, make_response
 import json
 from flask_cors import cross_origin
@@ -52,7 +53,7 @@ def processRequest(req):
         fdc=finaldataset
         fdc.drop('prognosis',axis=1,inplace=True)
         x_train,x_test,y_train,y_test=train_test_split(fdc,labels,test_size=0.25,random_state=20)
-        model=MultinomialNB()
+        model=RandomForestClassifier()
         model.fit(x_train,y_train)
         Alldiseases=model.classes_.tolist()
 
