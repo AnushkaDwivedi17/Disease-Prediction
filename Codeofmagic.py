@@ -7,8 +7,8 @@ Created on Thu Jul 23 14:59:36 2020
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-#from sklearn.naive_bayes import MultinomialNB
-from sklearn.ensemble import RandomForestClassifier
+from sklearn.naive_bayes import MultinomialNB
+#from sklearn.ensemble import RandomForestClassifier
 #from sklearn.neural_network import MLPClassifier
 from flask import Flask, request, make_response
 import json
@@ -51,7 +51,7 @@ def processRequest(req):
         user_symptoms = User_Symptoms
         
         symptom=np.zeros([132],dtype=float)
-        model=pickle.load(open('rfcmodel.pkl','rb'))
+        model=pickle.load(open('mnb.pkl','rb'))
         Alldiseases=model.classes_.tolist()
 
         indexes=[]
