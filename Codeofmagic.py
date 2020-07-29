@@ -12,8 +12,11 @@ from sklearn.ensemble import RandomForestClassifier
 from flask import Flask, request, make_response
 import json
 from flask_cors import cross_origin
+import pickle
 
 User_Symptoms=[]
+model_symptoms=['itching','skin rash','nodal skin eruptions','continuous sneezing','shivering','chills','joint pain','stomach pain','acidity','ulcers on tongue','muscle wasting','vomiting','burning micturition','spotting  urination','fatigue','weight gain','anxiety','cold hands and feets','mood swings','weight loss','restlessness','lethargy','patches in throat','irregular sugar level','cough','high fever','sunken eyes','breathlessness','sweating','dehydration','indigestion','headache','yellowish skin','dark urine','nausea','loss of appetite','pain behind the eyes','back pain','constipation','abdominal pain','diarrhoea','mild fever','yellow urine','yellowing of eyes','acute liver failure','fluid overload','swelling of stomach','swelled lymph nodes','malaise','blurred and distorted vision','phlegm','throat irritation','redness of eyes','sinus pressure','runny nose','congestion','chest pain','weakness in limbs','fast heart rate','pain during bowel movements','pain in anal region','bloody stool','irritation in anus','neck pain','dizziness','cramps','bruising','obesity','swollen legs','swollen blood vessels','puffy face and eyes','enlarged thyroid','brittle nails','swollen extremeties','excessive hunger','extra marital contacts','drying and tingling lips','slurred speech','knee pain','hip joint pain','muscle weakness','stiff neck','swelling joints','movement stiffness','spinning movements','loss of balance','unsteadiness','weakness of one body side','loss of smell','bladder discomfort','foul smell of urine','continuous feel of urine','passage of gases','internal itching','toxic look (typhos)','depression','irritability','muscle pain','altered sensorium','red spots over body','belly pain','abnormal menstruation','dischromic  patches','watering from eyes','increased appetite','polyuria','family history','mucoid sputum','rusty sputum','lack of concentration','visual disturbances','receiving blood transfusion','receiving unsterile injections','coma','stomach bleeding','distention of abdomen','history of alcohol consumption','fluid overload.1','blood in sputum','prominent veins on calf','palpitations','painful walking','pus filled pimples','blackheads','scurring','skin peeling','silver like dusting','small dents in nails','inflammatory nails','blister','red sore around nose','yellow crust ooze']
+
 app = Flask(__name__)
 
 @app.route('/')
@@ -47,19 +50,12 @@ def processRequest(req):
         user_symptoms = User_Symptoms
         
         symptom=np.zeros([132],dtype=float)
-        finaldataset=pd.read_csv('Training.csv')
-        finaldataset.columns=finaldataset.columns.str.replace('_',' ')
-        labels=finaldataset['prognosis']
-        fdc=finaldataset
-        fdc.drop('prognosis',axis=1,inplace=True)
-        x_train,x_test,y_train,y_test=train_test_split(fdc,labels,test_size=0.25,random_state=20)
-        model=RandomForestClassifier()
-        model.fit(x_train,y_train)
+        model=pickle.load(open('rfcmodel.pkl','rb'))
         Alldiseases=model.classes_.tolist()
 
         indexes=[]
-        for i in range(len(x_train.columns)):
-            if x_train.columns[i] in user_symptoms:
+        for i in range(len(model_symptoms)):
+            if model_symptoms[i] in user_symptoms:
                 indexes.append(i)
             for i in indexes:
                 symptom[i]=1
