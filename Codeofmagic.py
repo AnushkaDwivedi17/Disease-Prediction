@@ -153,7 +153,7 @@ def top3_models(model_name,user_symptoms):
         k.append(probab[0][h]*100)
         top3_model_name.append(k)
         probab[0][h]=-1  
-     return top3_model_name   
+    return top3_model_name   
 
 def status(value):
     if value>35:
