@@ -60,7 +60,7 @@ def processRequest(req):
         return {
             "fulfillmentText": fulfillmentText
         }
-"""
+        
     elif req.get("queryResult").get("action") == "help.disease":
         disease=parameters
         answer=""
@@ -72,7 +72,7 @@ def processRequest(req):
         return {
             "fulfillmentText": fulfillmentText
         }
-        
+    """    
     elif req.get("queryResult").get("action") == "add_symptom.no":
         user_symptoms = User_Symptoms
         """
