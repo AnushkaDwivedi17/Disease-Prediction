@@ -51,28 +51,7 @@ def processRequest(req):
         ans=[]
         ans=ans+parameters.get("Disease")
         User_Symptoms=User_Symptoms+ans
-    
-   """ elif req.get("queryResult").get("action") == "bmi.calculate":
-        height=parameters.get("height")
-        weight=parameters.get("weight")
-        answer=weight/(height*height)
-        fulfillmentText = str(answer)+"kg per metre square"
-        return {
-            "fulfillmentText": fulfillmentText
-        }
-        
-    elif req.get("queryResult").get("action") == "help.disease":
-        disease=parameters
-        answer=""
-        if disease in emergency:
-            index=emergency.index(disease)
-            answer=emergency.index(disease+1)
-            
-        fulfillmentText = answer
-        return {
-            "fulfillmentText": fulfillmentText
-        }
-    """    
+       
     elif req.get("queryResult").get("action") == "add_symptom.no":
         user_symptoms = User_Symptoms
         """
