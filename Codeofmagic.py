@@ -80,7 +80,7 @@ def processRequest(req):
                 top3.append(k)
                 probab[0][h]=-1 """
         symp=""
-        symp+="You have these symptoms "
+        symp+="You have shown these symptoms "
         for i in range(len(user_symptoms)-1):
             symp+=str(user_symptoms[i])+" "
         symp+="and "+str(user_symptoms[len(user_symptoms)-1])+".\n"+"\n"
