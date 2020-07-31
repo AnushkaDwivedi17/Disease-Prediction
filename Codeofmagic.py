@@ -64,6 +64,19 @@ def processRequest(req):
             "fulfillmentText": fulfillmentText
         }
     
+    elif req.get("queryResult").get("action") == "help.disease":
+        disease=parameters
+        answer=""
+        if disease in emergency:
+            index=emergency.index(disease)
+            answer=emergency.index(disease+1)
+            
+        fulfillmentText = answer
+        return {
+            "fulfillmentText": fulfillmentText
+        }
+    
+    
     elif req.get("queryResult").get("action") == "add_symptom.no":
         user_symptoms = User_Symptoms
         """
