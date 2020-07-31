@@ -69,7 +69,7 @@ def processRequest(req):
         answer=""
         if disease in emergency:
             index=emergency.index(disease)
-            answer=emergency.index(disease+1)
+            answer=emergency[index+1]
             
         fulfillmentText = answer
         return {
