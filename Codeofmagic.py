@@ -89,6 +89,7 @@ def processRequest(req):
         rest+=symp
         rest+=predic
         fulfillmentText = rest
+        User_Symptoms=[]
         return {
             "fulfillmentText": fulfillmentText
         }
