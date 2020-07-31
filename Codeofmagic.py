@@ -118,16 +118,26 @@ def Modelspred(user_symptoms):
     for k in set(dis):
         max[k]=dis.count(k)
     max = OrderedDict(sorted(max.items(), key=lambda kv: (kv[1],kv[0]), reverse=True))
+    top=[]
     for i,j in zip(max,range(3)):
-        top3.append([i])
+        top.append([i])
     for i in range(3):
         avg=0.0
         avg_count=0
         for j in disease:
-            if j[0]==top3[i][0]:
+            if j[0]==top[i][0]:
                 avg+=j[1]
                 avg_count+=1
-        top3[i].append(avg/avg_count)  
+        top[i].append(avg/avg_count)  
+    diction={}
+    for i in top:
+        diction[i[0]]=i[1]   
+    diction = OrderedDict(sorted(diction.items(), key=lambda kv: (kv[1],kv[0]), reverse=True))
+    for i in diction:
+        lis=[]
+        lis.append(i)
+        lis.append(diction[i])
+        top3.append(lis)
     return top3
 
     
