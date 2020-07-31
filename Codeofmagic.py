@@ -78,17 +78,17 @@ def processRequest(req):
                 k.append(Alldiseases[h])
                 k.append(probab[0][h])
                 top3.append(k)
-                probab[0][h]=-1
-"""     symp=""
+                probab[0][h]=-1 """
+        symp=""
         symp+="You have these symptoms "
         for i in range(len(user_symptoms)-1):
             symp+=str(user_symptoms[i])+" "
-        symp+="and "+user_symptoms[len(user_symptoms)-1]+".\n"+"\n"
+        symp+="and "+str(user_symptoms[len(user_symptoms)-1])+".\n"+"\n"
         predic=Answer(user_symptoms)
-        result=""
-        result+=symp
-        result+=predic
-        fulfillmentText = result
+        rest=""
+        rest+=symp
+        rest+=predic
+        fulfillmentText = rest
         return {
             "fulfillmentText": fulfillmentText
         }
