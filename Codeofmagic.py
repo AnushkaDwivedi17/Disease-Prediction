@@ -83,7 +83,8 @@ def processRequest(req):
         symp+="You have shown these symptoms "
         for i in range(len(user_symptoms)-1):
             symp+=str(user_symptoms[i])+" "
-        symp+="and "+str(user_symptoms[len(user_symptoms)-1])+".\n"+"\n"
+        if len(user_symptoms)>1:   
+            symp+="and "+str(user_symptoms[len(user_symptoms)-1])+".\n"+"\n"
         predic=Answer(user_symptoms)
         rest=""
         rest+=symp
