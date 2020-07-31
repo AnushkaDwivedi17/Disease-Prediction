@@ -51,7 +51,19 @@ def processRequest(req):
         ans=[]
         ans=ans+parameters.get("Disease")
         User_Symptoms=User_Symptoms+ans
-       
+        
+     elif req.get("queryResult").get("action") == "bmi.calculate":
+        height=parameters.get("unit-length").get("unit").get("amount")
+        weight=parameters.get("unit-weight").get("unit").get("amount")
+        if parameters.get("unit-length").get("unit")=='cm':
+            height=height/100
+            
+        answer=round(weight/(height*height),2)
+        fulfillmentText = "Your BMI is "+str(answer)+"kg per metre square"
+        return {
+            "fulfillmentText": fulfillmentText
+        }
+    
     elif req.get("queryResult").get("action") == "add_symptom.no":
         user_symptoms = User_Symptoms
         """
