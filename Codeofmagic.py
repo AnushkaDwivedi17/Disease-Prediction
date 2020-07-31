@@ -198,7 +198,7 @@ def precau(dise):
         for i in range(len(precautions['Disease'])):
             if precautions['Disease'][i].strip()==dise.strip():
                 for k in range(4):
-                    precaut+=precautions['Precaution '+str(k+1)][i]+"\n"
+                    precaut+=str(precautions['Precaution '+str(k+1)][i])+"\n"
     return precaut    
     
     
