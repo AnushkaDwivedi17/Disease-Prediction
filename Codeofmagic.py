@@ -80,11 +80,13 @@ def processRequest(req):
                 top3.append(k)
                 probab[0][h]=-1 """
         symp=""
-        symp+="You have shown these symptoms "
-        for i in range(len(user_symptoms)-1):
-            symp+=str(user_symptoms[i])+" "
-        if len(user_symptoms)>1:   
-            symp+="and "+str(user_symptoms[len(user_symptoms)-1])+".\n"+"\n"
+        symp+="You have shown the symptoms of "
+        if len(user_symptoms)==1:
+            symp+=str(user_symptoms[len(user_symptoms)-1])+".\n"+"\n"
+        else:   
+            for i in range(len(user_symptoms)-1):
+                symp+=str(user_symptoms[i])+" "
+            result+="and "+str(user_symptoms[len(user_symptoms)-1])+".\n"+"\n"
         predic=Answer(user_symptoms)
         rest=""
         rest+=symp
