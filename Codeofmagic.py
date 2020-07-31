@@ -79,8 +79,15 @@ def processRequest(req):
                 k.append(probab[0][h])
                 top3.append(k)
                 probab[0][h]=-1
-"""
-        result=Answer(user_symptoms)
+"""     symp=""
+        symp+="You have these symptoms "
+        for i in range(len(user_symptoms)-1):
+            symp+=str(user_symptoms[i])+" "
+        symp+="and "+user_symptoms[len(user_symptoms)-1]+".\n"+"\n"
+        predic=Answer(user_symptoms)
+        result=""
+        result+=symp
+        result+=predic
         fulfillmentText = result
         return {
             "fulfillmentText": fulfillmentText
