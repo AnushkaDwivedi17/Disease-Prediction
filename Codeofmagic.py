@@ -17,7 +17,7 @@ from flask_cors import cross_origin
 import pickle
 from collections import OrderedDict
 
-User_Symptoms=[]
+User_Symptoms={}
 model_symptoms=['itching','skin rash','nodal skin eruptions','continuous sneezing','shivering','chills','joint pain','stomach pain','acidity','ulcers on tongue','muscle wasting','vomiting','burning micturition','spotting  urination','fatigue','weight gain','anxiety','cold hands and feets','mood swings','weight loss','restlessness','lethargy','patches in throat','irregular sugar level','cough','high fever','sunken eyes','breathlessness','sweating','dehydration','indigestion','headache','yellowish skin','dark urine','nausea','loss of appetite','pain behind the eyes','back pain','constipation','abdominal pain','diarrhoea','mild fever','yellow urine','yellowing of eyes','acute liver failure','fluid overload','swelling of stomach','swelled lymph nodes','malaise','blurred and distorted vision','phlegm','throat irritation','redness of eyes','sinus pressure','runny nose','congestion','chest pain','weakness in limbs','fast heart rate','pain during bowel movements','pain in anal region','bloody stool','irritation in anus','neck pain','dizziness','cramps','bruising','obesity','swollen legs','swollen blood vessels','puffy face and eyes','enlarged thyroid','brittle nails','swollen extremeties','excessive hunger','extra marital contacts','drying and tingling lips','slurred speech','knee pain','hip joint pain','muscle weakness','stiff neck','swelling joints','movement stiffness','spinning movements','loss of balance','unsteadiness','weakness of one body side','loss of smell','bladder discomfort','foul smell of urine','continuous feel of urine','passage of gases','internal itching','toxic look (typhos)','depression','irritability','muscle pain','altered sensorium','red spots over body','belly pain','abnormal menstruation','dischromic  patches','watering from eyes','increased appetite','polyuria','family history','mucoid sputum','rusty sputum','lack of concentration','visual disturbances','receiving blood transfusion','receiving unsterile injections','coma','stomach bleeding','distention of abdomen','history of alcohol consumption','fluid overload.1','blood in sputum','prominent veins on calf','palpitations','painful walking','pus filled pimples','blackheads','scurring','skin peeling','silver like dusting','small dents in nails','inflammatory nails','blister','red sore around nose','yellow crust ooze']
 information_ofD=['(vertigo) Paroxysmsal  Positional Vertigo', 'nil', 'otolaryngologist(ENT specialist)','AIDS', 'HIV', 'Infectious Disease specialist','Acne', 'nil', 'Dermatologist','Alcoholic hepatitis', 'nil', 'Gastroenterologist or commonly liver specialist','Allergy', 'nil', 'allergist','Arthritis', 'nil', 'Rheumatologists','Bronchial Asthma', 'Asthma', 'allergist','Cervical spondylosis', 'Arthritis of neck', 'Neurosurgeon and orthopedic surgeon','Chicken pox', 'nil', 'Dermatologist','Chronic cholestasis', 'Cholestasis', 'liver specialist','Common Cold', 'nil', 'nil','Dengue', 'nil', 'Infectious disease specialist','Diabetes ', 'nil', 'endocrinologist','Dimorphic hemmorhoids(piles)', 'piles', 'gastroenterologist','Drug Reaction', 'nil', 'allergist','Fungal infection', 'nil', 'Infectious disease specialist','GERD', 'Acid reflux', 'specialist in medicine','Gastroenteritis', 'gastro', 'gastroenterologist','Heart attack', 'nil', 'Cardiologist','hepatitis A', 'hepatovirus', 'gastroenterologist','Hepatitis B', 'nil', 'gastroenterologist','Hepatitis C', 'nil', 'gastroenterologist','Hepatitis D', 'nil', 'gastroenterologist','Hepatitis E', 'nil', 'gastroenterologist','Hypertension', 'high blood pressure', 'Cardiologist','Hyperthyroidism', 'overactive thyroid', 'endocrinologist','Hypoglycemia', 'low blood sugar', 'endocrinologist','Hypothyroidism', 'nil', 'endocrinologist','Impetigo', 'Skin infection', 'dermatologist','Jaundice', 'yellow fever', 'gastroenterologist','Malaria', 'nil', 'Infectious disease specialist','Migraine', 'nil', 'neurologist','Osteoarthristis', 'degenerative joint disease', 'Rheumatologist','Paralysis (brain hemorrhage)', 'nil', 'neurosurgeon','Peptic ulcer diseae', 'gastric ulcer', 'gastroenterologist','Pneumonia', 'nil', 'pulmonologist','Psoriasis', 'nil', 'dermatologist','Tuberculosis', 'TB', 'Infectious disease specialist','Typhoid', 'nil', 'Infectious disease specialist','Urinary tract infection', 'nil', 'Urologist','Varicose veins', 'spider veins', 'vascular surgeon']
 Serious_Diseases=['AIDS','Chicken pox','Dengue','Diabetes ','Dimorphic hemmorhoids(piles)','Heart attack','Hepatitis C','Hepatitis D','Hypertension ','Hyperthyroidism','Jaundice','Malaria','Osteoarthristis','Paralysis (brain hemorrhage)','Pneumonia','Tuberculosis','Typhoid','Urinary tract infection']
@@ -43,13 +43,17 @@ def webhook():
 def processRequest(req):
     result = req.get("queryResult")
     parameters = result.get("parameters")
+    sessionid=req.get("sessionId")
     global User_Symptoms
     if req.get("queryResult").get("action") == "add_symptom":
         result = req.get("queryResult")
         parameters = result.get("parameters")
         ans=[]
         ans=ans+parameters.get("Disease")
-        User_Symptoms=User_Symptoms+ans
+        if sessionid in User_Symptoms.keys():
+            User_Symptoms[sessionid]=User_Symptoms[sessionid]+ans
+        else:
+            User_Symptoms[sessionid]=ans
         
     elif req.get("queryResult").get("action") == "bmi.calculate":
         height=parameters.get("unit-length").get("amount")
@@ -76,7 +80,7 @@ def processRequest(req):
     
     
     elif req.get("queryResult").get("action") == "add_symptom.no":
-        user_symptoms = User_Symptoms
+        user_symptoms = User_Symptoms[sessionid]
         """
         symptom=np.zeros([132],dtype=float)
         model=pickle.load(open('mnb.pkl','rb'))
@@ -115,7 +119,7 @@ def processRequest(req):
         rest+=symp
         rest+=predic
         fulfillmentText = rest
-        User_Symptoms=[]
+        del User_Symptoms[sessionid]
         return {
             "fulfillmentText": fulfillmentText
         }
