@@ -66,10 +66,10 @@ def processRequest(req):
     
     elif req.get("queryResult").get("action") == "help.disease":
         disease=parameters.get("helponthego")
-        answer=""
+        answer="Your emergency info is -"
         if disease in emergency:
             index=emergency.index(disease)
-            answer=emergency[index+1]
+            answer+=emergency[index+1]
             
         fulfillmentText = answer
         return {
