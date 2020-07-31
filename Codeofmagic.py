@@ -64,13 +64,8 @@ def processRequest(req):
         }
     
     elif req.get("queryResult").get("action") == "help.disease":
-        dis=req.get("queryResult").get("parameters").get("helponthego")
-        an="Your emergency info is -"
-        if str(dis) in emergency:
-            index=emergency.index(str(dis))
-            an+=emergency[index+1]
-            
-        fulfillmentText = str(an)
+        emer="Your emergency info "
+        fulfillmentText = emer
         return {
             "fulfillmentText": fulfillmentText
         }
