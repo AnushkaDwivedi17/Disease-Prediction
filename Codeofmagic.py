@@ -65,7 +65,7 @@ def processRequest(req):
         }
     
     elif req.get("queryResult").get("action") == "help.disease":
-        disease=parameters
+        disease=parameters.get("helponthego")
         answer=""
         if disease in emergency:
             index=emergency.index(disease)
