@@ -53,8 +53,8 @@ def processRequest(req):
         User_Symptoms=User_Symptoms+ans
         
     elif req.get("queryResult").get("action") == "bmi.calculate":
-        height=parameters.get("unit-length").get("unit").get("amount")
-        weight=parameters.get("unit-weight").get("unit").get("amount")
+        height=parameters.get("unit-length").get("amount")
+        weight=parameters.get("unit-weight").get("amount")
         if parameters.get("unit-length").get("unit")=='cm':
             height=height/100
             
