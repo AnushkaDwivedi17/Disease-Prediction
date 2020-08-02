@@ -121,7 +121,6 @@ def processRequest(req):
         rest=""
         rest+=symp
         rest+=predic
-        rest+="Session id: "+str(sessionid)
         fulfillmentText = rest
         del User_Symptoms[sessionid]
         return {
