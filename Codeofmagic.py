@@ -81,7 +81,9 @@ def processRequest(req):
     
     elif req.get("queryResult").get("action") == "add_symptom.no":
         user_symptoms = User_Symptoms[sessionid]
-        ssd=sessionid
+        
+        ssd=req.get("queryResult").get("outputContexts")
+        ssd=ssd[0]["name"]
         """
         symptom=np.zeros([132],dtype=float)
         model=pickle.load(open('mnb.pkl','rb'))
