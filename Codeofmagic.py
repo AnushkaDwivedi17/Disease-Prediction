@@ -81,6 +81,7 @@ def processRequest(req):
     
     elif req.get("queryResult").get("action") == "add_symptom.no":
         user_symptoms = User_Symptoms[sessionid]
+        ssd=sessionid
         """
         symptom=np.zeros([132],dtype=float)
         model=pickle.load(open('mnb.pkl','rb'))
@@ -118,8 +119,9 @@ def processRequest(req):
         rest=""
         rest+=symp
         rest+=predic
+        rest+="SESSion id: "+str(ssd)
         fulfillmentText = rest
-        del User_Symptoms[sessionid]
+        #del User_Symptoms[sessionid]
         return {
             "fulfillmentText": fulfillmentText
         }
