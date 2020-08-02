@@ -83,7 +83,7 @@ def processRequest(req):
     
     
     elif req.get("queryResult").get("action") == "add_symptom.no":
-        user_symptoms = User_Symptoms[sessionid]
+        user_symptoms = list(set(User_Symptoms[sessionid]))
         """
         symptom=np.zeros([132],dtype=float)
         model=pickle.load(open('mnb.pkl','rb'))
